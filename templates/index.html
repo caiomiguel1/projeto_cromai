@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usos dos componentes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>
+        MONITORAMENTO CROMAI
+    </h1>
+    <div class="conteudo">
+    <div class="quadrado-container">
+        <div class="titulo">Uso da RAM</div>
+        <div class="quadrado"><span id="ram">{{ ram }}%</span></div>
+    </div>
+    <div class="quadrado-container">
+        <div class="titulo">Uso do CPU</div>
+        <div class="quadrado"><span id="cpu">{{ cpu }}%</span></div>
+    </div>
+    <div class="quadrado-container">
+        <div class="titulo">Uso do Disco</div>
+        <div class="quadrado"><span id="disk">{{ disk }}%</span></div>
+    </div>
+    </div>
+
+    <script>
+    function atualizarValores() {
+        fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                // Não é necessário enviar dados do cliente para o servidor aqui
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const { ram, cpu, disk } = data;
+            document.getElementById('ram').textContent = ram + '%';
+            document.getElementById('cpu').textContent = cpu + '%';
+            document.getElementById('disk').textContent = disk + '%';
+        });
+    }
+
+    setInterval(atualizarValores, 1000);
+    atualizarValores();
+    </script>
+
+</body>
+</html>
