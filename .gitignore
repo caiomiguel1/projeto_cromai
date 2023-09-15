@@ -5,7 +5,11 @@ __pycache__/
 
 # C extensions
 *.so
+<<<<<<< HEAD
 keys
+=======
+keys/
+>>>>>>> master
 # Distribution / packaging
 .Python
 build/
